@@ -1,0 +1,25 @@
+version: '3.1'
+
+services:
+
+  drupal:
+    image: drupal:8-apache
+    ports:
+      - 8081:80
+    volumes:
+      - drupal_storage:/var/www/html
+    restart: always
+    depends_on:
+      - dbase
+  dbase:
+    image: mongo:4.0.8
+    volumes:
+      - mongo_storage:/var/lib/mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    restart: always
+volumes:
+   mongo_storage: 
+   drupal_storage:
+
